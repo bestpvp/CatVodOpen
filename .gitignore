@@ -1,0 +1,5 @@
+open/node_modules/*
+open/dist/*
+open/local/*
+package-lock.json
+.DS_Store

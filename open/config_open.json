@@ -9,6 +9,16 @@
       }
     ]
   },
+  "read": {
+      "sites": [
+          {
+              "key": "bookan",
+              "name": "博看听书",
+              "type": 10,
+              "api": "assets://js/bookan_open.js"
+          }
+      ]
+  },
   "pan": {
     "sites": [
       {

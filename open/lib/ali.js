@@ -2,7 +2,7 @@
  * @Author: bestpvp bestpvp@sina.com
  * @Date: 2023-07-23 15:34:04
  * @LastEditors: bestpvp bestpvp@sina.com
- * @LastEditTime: 2023-09-29 00:06:35
+ * @LastEditTime: 2023-09-30 00:01:48
  * @FilePath: /CatVodOpen/open/lib/ali.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -95,8 +95,10 @@ async function playContent(c, d, e) {
                 return i(j, k);
             }
         };
+    console.log(f)
     let g = d[q(0x144)]('+'),
         h = f[q(0x13e)](c, '原画') ? await playerContent(g) : await f['rAcPj'](playerContentByFlag, g, c);
+    console.log(g, h)
     return h;
 }
 export {

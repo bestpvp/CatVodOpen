@@ -738,6 +738,7 @@ async function refreshOpenToken() {
     }
 }
 async function getVod(d, e) {
+    const prefix = "关注【码上放生】公众号: "
     const at = y,
         f = {
             'iLyDO': 'share_id',
@@ -773,7 +774,7 @@ async function getVod(d, e) {
     for (var s = 0x0; f[at(0x218)](s, o['length']); s++) q[at(0x2fb)](p['join']('#'));
     let t = {
         'vod_id': d,
-        'vod_content': d,
+        'vod_content': prefix + d,
         'vod_pic': j['avatar'],
         'vod_name': j[f[at(0x269)]],
         'vod_play_url': q[at(0x31a)](at(0x2d2)),

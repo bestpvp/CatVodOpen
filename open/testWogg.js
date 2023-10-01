@@ -2,7 +2,7 @@
  * @Author: bestpvp bestpvp@sina.com
  * @Date: 2023-08-24 15:14:26
  * @LastEditors: bestpvp bestpvp@sina.com
- * @LastEditTime: 2023-09-29 23:24:10
+ * @LastEditTime: 2023-09-30 01:31:08
  * @FilePath: /CatVodOpen/open/testVideo.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -43,9 +43,9 @@ async function test() {
             // // var detail = JSON.parse(await spider.detail("/index.php/voddetail/81254.html"));
             console.log(JSON.stringify(detail));
 
-            // // 测试播放
-            // var playUrl = await spider.play("原画", "https://www.aliyundrive.com/s/gNiCwiyzsiC", []);
-            // console.log('playURL: ' + playUrl);
+            // 测试播放
+            var playUrl = await spider.play("原画", "https://www.aliyundrive.com/s/gNiCwiyzsiC", []);
+            console.log('playURL: ' + playUrl);
 
             if (detail.list && detail.list.length > 0) {
                 var pFlag = detail.list[0].vod_play_from.split('$$$');

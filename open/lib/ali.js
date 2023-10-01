@@ -2,7 +2,7 @@
  * @Author: bestpvp bestpvp@sina.com
  * @Date: 2023-07-23 15:34:04
  * @LastEditors: bestpvp bestpvp@sina.com
- * @LastEditTime: 2023-09-30 00:01:48
+ * @LastEditTime: 2023-09-30 01:39:08
  * @FilePath: /CatVodOpen/open/lib/ali.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -66,24 +66,30 @@ async function initAli(c) {
     await d[o(0x14e)](log, d[o(0x141)] + typeof c), await initSome(), await d[o(0x14e)](setToken, e), await d[o(0x14e)](log, d[o(0x13a)](d[o(0x14b)], e));
 }
 async function detailContent(c) {
-    const p = b,
-        d = {
-            'MlDBF': function (l, m) {
-                return l(m);
-            }
-        },
-        e = /www.aliyundrive.com\/s\/([^\/]+)(\/folder\/([^\/]+))?/;
-    let f = c[p(0x146)](),
-        g = f[p(0x143)](e);
-    if (_[p(0x13f)](g)) return '';
-    let h = g[0x1],
-        i = g['length'] == 0x3 ? g[0x3] : '';
-    await d[p(0x14a)](setShareId, h);
-    let j = await getVod(f, i),
-        k = JSON[p(0x14d)]({
-            'list': [j]
-        });
-    return k;
+    try {
+        const p = b,
+            d = {
+                'MlDBF': function (l, m) {
+                    return l(m);
+                }
+            },
+            e = /www.aliyundrive.com\/s\/([^\/]+)(\/folder\/([^\/]+))?/;
+        let f = c[p(0x146)](),
+            g = f[p(0x143)](e);
+        if (_[p(0x13f)](g)) return '';
+        let h = g[0x1],
+            i = g['length'] == 0x3 ? g[0x3] : '';
+        await d[p(0x14a)](setShareId, h);
+        let j = await getVod(f, i),
+            k = JSON[p(0x14d)]({
+                'list': [j]
+            });
+        return k;
+    }
+    catch (e) {
+        console.log('detail:' + e.message + ' line:' + e.lineNumber);
+        return k;
+    }
 }
 async function playContent(c, d, e) {
     const q = b,

@@ -13,7 +13,7 @@ Not being maintained and uncertain whether they will be updated.
 
 ### **Limits**
 
-- Only local `assets://`, `github://`, `gitee://` config is supported, and http config is not available. 
+- Only local `assets://`, `github://`, `gitee://`, `http(s)://user:pwd@xxx` config is supported, and http config without basic auth is not available. 
 - Only video&cloud disk&audio book module.
 - Not supporting sniffing.
 - Basic JS interface support.

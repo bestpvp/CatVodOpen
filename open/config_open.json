@@ -29,6 +29,16 @@
           }
       ]
   },
+  "comic": {
+      "sites": [
+          {
+              "key": "copymanga",
+              "name": "拷贝漫画",
+              "type": 20,
+              "api": "assets://js/copymanga_open.js"
+          }
+      ]
+  },
   "pan": {
     "sites": [
       {

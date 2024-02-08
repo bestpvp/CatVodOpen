@@ -22,6 +22,12 @@
   "read": {
       "sites": [
           {
+              "key": "13bqg",
+              "name": "笔趣阁",
+              "type": 10,
+              "api": "assets://js/13bqg_open.js"
+          },        
+          {
               "key": "bookan",
               "name": "博看听书",
               "type": 10,

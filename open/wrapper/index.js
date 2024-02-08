@@ -386,6 +386,13 @@ globalThis.JSFile = function (path) {
     this.flush = async function () {
         return;
     };
+    
+    /**
+     * File to sharedBuffer.
+     */
+    this.shared = async function () {
+        return;
+    };
 
     /**
      * Closes the file descriptor.

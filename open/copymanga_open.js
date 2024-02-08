@@ -73,15 +73,12 @@ async function home(filter) {
             v: a.attribs.href.match(/.*?theme=(.*)&/)[1],
         });
     }
-
-    _.each(_.chunk(themeValues, 11), (vals) => {
-        let theme = {
-            key: 'theme',
-            name: '',
-            init: '',
-            value: vals,
-        };
-        filterObj['c1'].push(theme);
+    filterObj['c1'].push({
+        key: 'theme',
+        name: '',
+        init: '',
+        wrap: 1,
+        value: themeValues,
     });
 
     filterObj['c1'].push(region);

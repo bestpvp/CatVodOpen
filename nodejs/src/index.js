@@ -24,6 +24,7 @@ export async function start(config) {
         serverFactory: catServerFactory,
         forceCloseConnections: true,
         logger: !!(process.env.NODE_ENV !== 'development'),
+        maxParamLength: 10240,
     });
     server.messageToDart = async (data, inReq) => {
         try {
@@ -41,12 +42,24 @@ export async function start(config) {
             return null;
         }
     };
+    server.address = function () {
+        const result = this.server.address();
+        result.url = `http://${result.address}:${result.port}`;
+        result.dynamic = 'js2p://_WEB_';
+        return result;
+    };
+    server.addHook('onError', async (_request, _reply, error) => {
+        console.error(error);
+        if (!error.statusCode) error.statusCode = 500;
+        return error;
+    });
     server.stop = false;
     server.config = config;
     // 推荐使用NODE_PATH做db存储的更目录，这个目录在应用中清除缓存时会被清空
     server.db = new JsonDB(new Config((process.env['NODE_PATH'] || '.') + '/db.json', true, true, '/', true));
     server.register(router);
-    server.listen({ port: process.env['DEV_HTTP_PORT'] || 0 });
+    // 注意 一定要监听ipv4地址 build后 app中使用时 端口使用0让系统自动分配可用端口
+    server.listen({ port: process.env['DEV_HTTP_PORT'] || 0, host: '127.0.0.1' });
 }
 
 /**

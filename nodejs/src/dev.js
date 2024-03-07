@@ -15,6 +15,10 @@ globalThis.catServerFactory = (handle) => {
     return server;
 };
 
+globalThis.catDartServerPort = () => {
+    return 0;
+};
+
 import { start } from './index.js';
 
 import * as config from './index.config.js';

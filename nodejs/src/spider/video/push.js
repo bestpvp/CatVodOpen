@@ -1,3 +1,5 @@
+import req from '../../util/req.js';
+
 async function init(_inReq, _outResp) {
     return {};
 }
@@ -26,9 +28,68 @@ async function detail(inReq, _outResp) {
     };
 }
 
+async function sniff(inReq, outResp) {
+    if (inReq.body.action == 'request') {
+        if (inReq.body.url.indexOf('.html') > 0 || inReq.body.url.indexOf('url=') > 0) {
+            const resp = await req.get(inReq.body.url, {
+                headers: inReq.body.headers,
+            });
+            const respHeaders = resp.headers.toJSON();
+            delete respHeaders['transfer-encoding'];
+            delete respHeaders['cache-control'];
+            delete respHeaders['content-length'];
+            if (respHeaders['content-encoding'] == 'gzip') {
+                delete respHeaders['content-encoding'];
+            }
+            outResp.headers(respHeaders);
+            return resp.data
+                .replaceAll(`var p = navigator.platform;`, `var p ='';`)
+                .replaceAll(
+                    `</html>`,
+                    `<script>
+            const loop1 = setInterval(function () {
+              if (
+                document.querySelectorAll('[onclick*=playlist]').length > 0 &&
+                window.playlist
+              ) {
+                clearInterval(loop1);
+                document.querySelectorAll('[onclick*=playlist]')[0].click();
+                return;
+              }
+            }, 200);</script></html>`
+                )
+                .replaceAll(`autoplay: false`, `autoplay: true`)
+                .replaceAll(`<video`, `<video autoplay=true `);
+        } else if (inReq.body.url.indexOf('video_mp4') > 0) {
+            outResp.header('sniff_end', '1');
+            return 'block';
+        }
+    }
+    return '';
+}
+
 async function play(inReq, _outResp) {
     // const flag = inReq.body.flag;
     const id = inReq.body.id;
+    if (id.startsWith('https://v.nmvod.cn/vod-play')) {
+        const sniffer = await inReq.server.messageToDart({
+            action: 'sniff',
+            opt: {
+                ua: 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1',
+                url: id,
+                timeout: 10000,
+                // rule and intercept parameters conflict, only one can be used
+                // rule: 'xxxxxxx'
+                intercept: inReq.server.address().url + inReq.server.prefix + '/sniff',
+            },
+        });
+        if (sniffer && sniffer.url) {
+            return {
+                parse: 0,
+                url: sniffer.url,
+            };
+        }
+    }
     return {
         parse: 0,
         url: id,
@@ -79,6 +140,7 @@ export default {
         fastify.post('/support', support);
         fastify.post('/detail', detail);
         fastify.post('/play', play);
+        fastify.post('/sniff', sniff);
         fastify.get('/test', test);
     },
 };
